@@ -1,0 +1,152 @@
+<?php
+
+include("connectionDB.php");
+
+  $username=$_COOKIE['username'];
+   
+
+   if (isset($_POST["upbtn"]))
+  { 
+ 
+     $ID=$_POST["ID"];
+	 $user=$_POST["User"];
+    $name= $_POST["Name"];
+	$address=$_POST["addr"];
+    $email=$_POST["Email"];
+	$tel= $_POST["Contact"];
+	
+
+
+	mysql_query("UPDATE herbalife.member SET mem_user='$user',mem_name ='$name',mem_address='$address',mem_email ='$email',mem_phone ='$tel'  WHERE  member.mem_id ='$ID';");
+   setcookie("username","$name",time()+86400);
+   //header("location:MainPage.php");
+   
+   
+  ?>
+  <script> 
+	
+	//{
+	
+	//alert("Your Profile has been Updated");
+	//window.close();
+	//window.open("LOGOUT.php");
+	
+	}
+	</script>
+ <?php
+  }
+
+
+
+
+?>
+
+
+<html>
+
+<style text="text/css">
+input[type="text"], textarea, td {
+
+  background-color : white; 
+
+}
+</style>
+
+<head>
+
+<script> 
+	//function myFunction()
+	//{
+	
+	//alert("Your Profile has been Updated");
+	//window.location=Profile.php;
+	//window.close();
+	
+	
+	}
+	</script>
+
+	<title>	Profile </title>
+	<!-- STYLES & JQUERY 
+================================================== -->
+<link rel="stylesheet" type="text/css" href="css/style.css"/>
+<link rel="stylesheet" type="text/css" href="css/icons.css"/>
+<link rel="stylesheet" type="text/css" href="css/skinlila.css"/><!-- change skin color -->
+<link rel="stylesheet" type="text/css" href="css/responsive.css"/>
+<script src="js/jquery-1.9.0.min.js"></script><!-- the rest of the scripts at the bottom of the document -->
+</head>
+<body>
+<div class="boxedtheme">
+
+</style>
+</head>
+	
+<body>
+	<center><div class="c9">
+				<h1 class="maintitle space-top">
+				<span>Update Profile</span>
+				</h1>  
+	
+	<div id="page2">
+	 <form id="UpdateProfileForm" name="UpdateProfileForm" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
+		<table border="5">	
+		<?php
+	 
+	 $result = mysql_query("select * from member where mem_user ='$username'");
+	 $row=mysql_fetch_assoc($result);
+	?>
+		
+		
+	<tr>
+		<th>ID
+		<td><input type="text" name="ID" size="40" readonly Value="<?php echo $row["mem_id"]; ?>">
+	</tr>
+	
+	<tr>
+		<th>Your UserName
+		<td><input type="text" name="User" size="40" Value="<?php echo $row["mem_user"]; ?>">
+	</tr>
+	
+	<tr>
+		<th>SNV Cleaning 
+		<td><input type="text" name="Name" size="40" Value="<?php echo $row["mem_name"];?>">
+	</tr>
+	
+	<tr>
+		<th>Your Address 
+		<td><textarea rows="5" cols="31" name="addr" ><?php echo $row["mem_address"];?></textarea>
+	</tr>
+	
+	<tr>
+		<th>Your Contact
+		<td><input type="text" name="Contact" size="40" Value="<?php echo $row["mem_phone"];?>">
+	</tr>
+	
+	<tr>
+		<th>Your Email
+		<td><input type="text" name="Email" size="40" Value="<?php echo $row["mem_email"];?>">
+	</tr>
+	
+	<tr>
+		<th> Update Profile Picture
+		<td><input type="file" name="pic" accept="image/*" align="center"> </input>
+	</tr>
+	
+	</table>
+	<br/>
+	<center><button type="submit" name="upbtn" onclick="myFunction()" value="Update"> Update </center> </a>
+	 </form>
+	</div>
+	
+	
+</body>
+</html>
+
+<?php
+/*
+	UPDATE  `herbalife`.`member` SET  `mem_user` =  'AB',
+`mem_name` =  'AB BIN',
+`mem_address` =  'dvgadfdfds',
+`mem_email` =  'sdsadsad',
+`mem_phone` =  '1323233' WHERE  `member`.`mem_id` =20;*/
+?>
